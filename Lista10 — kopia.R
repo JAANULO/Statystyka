@@ -1,6 +1,4 @@
 # lista10
-#test
-
 
 # Wczytywanie danych
 waga1 <- read.csv2("waga1.csv", stringsAsFactors = FALSE, sep = ";")
@@ -12,10 +10,6 @@ waga1$Waga_przed <- as.numeric(gsub(",", ".", waga1$Waga_przed))
 waga1$Wzrost <- as.numeric(gsub(",", ".", waga1$Wzrost))
 
 waga1 <- waga1[complete.cases(waga1[, c("plec", "Waga_po", "Waga_przed", "Wzrost")]), ]
-
-
-
-
 
 # zadanie1
 #a)
