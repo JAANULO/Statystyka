@@ -98,6 +98,7 @@ n_m <- sum(waga1$plec == 0)
 p1 <- waga_k_70/n_k; p2 <- waga_m_70/n_m
 p_pool <- (waga_k_70 + waga_m_70)/(n_k + n_m)
 se_pool <- sqrt(p_pool*(1 - p_pool)*(1/n_k + 1/n_m))
+
 z <- (p1 - p2)/se_pool
 p_value <- 2 * (1 - pnorm(abs(z)))
 cat("Zadanie4_a)\nZ =", z, "p-value =", p_value, "\n\n")
