@@ -15,6 +15,7 @@ waga1 <- waga1[complete.cases(waga1[, c("plec", "Waga_po", "Waga_przed", "Wzrost
 #zadanie 1
 #a) Testowanie hipotezy, że 40% populacji ma wyższe wykształcenie
 #i) Ręczny test Z dla proporcji
+#wzór Z = p^ - po / √( po( 1 - po) / n
 n <- 1000       # Całkowita liczba obserwacji
 x <- 385        # Liczba osób z wyższym wykształceniem
 p0 <- 0.4       # Hipotezowana proporcja
@@ -30,6 +31,7 @@ prop.test(x, n, p = p0, correct = FALSE)
 
 #b) Testowanie niezależności płci a ukończenia studiów
 #i) Ręczny test Z dla dwóch proporcji (ze wspólną proporcją pod H0)
+
 n1 <- 520; x1 <- 220   # Kobiety: próba i liczba z wykształceniem
 n2 <- 480; x2 <- 165   # Mężczyźni: próba i liczba z wykształceniem
 p1 <- x1/n1; p2 <- x2/n2
@@ -39,11 +41,11 @@ z <- (p1 - p2)/se_pool         # Statystyka Z
 p_value <- 2 * (1 - pnorm(abs(z)))  # Dwustronne p-value
 cat("Zadanie1_b_i)\nZ =", z, "p-value =", p_value, "\n\n")
 
-# ii) Test proporcji dla dwóch grup z prop.test
+#ii) Test proporcji dla dwóch grup z prop.test
 cat("Zadanie1_b_ii)\n")
 prop.test(c(x1, x2), c(n1, n2), correct = FALSE)
 
-# c) Test Z dla różnicy średnich wzrostu między płciami (znane wariancje)
+#c) Test Z dla różnicy średnich wzrostu między płciami (znane wariancje)
 mean_w <- 166; var_w <- 100; n_w <- 520  # Kobiety: średnia, wariancja, próba
 mean_m <- 174; var_m <- 121; n_m <- 480  # Mężczyźni: średnia, wariancja, próba
 se_diff <- sqrt(var_w/n_w + var_m/n_m)   # Błąd standardowy różnicy
@@ -51,9 +53,8 @@ z <- (mean_w - mean_m)/se_diff           # Statystyka Z
 p_value <- 2 * (1 - pnorm(abs(z)))       # Dwustronne p-value
 cat("Zadanie1_c_i)\nZ =", z, "p-value =", p_value, "\n\n")
 
-# ------------------------------------------------------------------------------------
-# Zadanie 2: Testowanie proporcji kobiet wśród studentów
-# a) Ręczny test Z dla proporcji 0.5
+#zadanie2 : Testowanie proporcji kobiet wśród studentów
+#a) Ręczny test Z dla proporcji 0.5
 n_female <- sum(waga1$plec == 1)  # Liczba kobiet
 n_total <- nrow(waga1)            # Całkowita liczba studentów
 p0 <- 0.5                         # Hipotezowana proporcja
@@ -63,13 +64,15 @@ z <- (p_hat - p0)/se              # Statystyka Z
 p_value <- 2 * (1 - pnorm(abs(z))) # Dwustronne p-value
 cat("Zadanie2_a)\nZ =", z, "p-value =", p_value, "\n\n")
 
-# b) Test z użyciem prop.test
+#b) Test z użyciem prop.test
 cat("Zadanie2_b)\n")
 prop.test(n_female, n_total, p = 0.5, correct = FALSE)
 
 
 #zadanie 3: Testowanie różnicy średniej wagi między płciami
 #a) Ręczny test Z dla dwóch średnich (niezakładający równości wariancji)
+#wzór: SE = √(σ₁² / n₁ + σ₂² / n₂)
+
 waga_k <- waga1$Waga_po[waga1$plec == 1]  # Wagi kobiet
 waga_m <- waga1$Waga_po[waga1$plec == 0]  # Wagi mężczyzn
 
@@ -146,6 +149,7 @@ cat("Zadanie6\nZ =", z, "p-value =", p_value, "\n\n")
 
 #zadanie 7: Proporcje osób wyższych niż 170cm między płciami
 #a) Ręczny test Z dla dwóch proporcji
+#wzór: w = (suma )
 taller_k <- sum(waga1$plec == 1 & waga1$Wzrost > 170)
 n_k <- sum(waga1$plec == 1)
 taller_m <- sum(waga1$plec == 0 & waga1$Wzrost > 170)
