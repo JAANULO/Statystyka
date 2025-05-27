@@ -75,8 +75,7 @@ print(table_3a)
 cat("\n")
 
 #b) jakas smieszna zmienna
-data$nowa_pokoje <- ifelse(data$Pokoje >= 4, 4, data$Pokoje)
-#wiecej niż 4 pokoje
+data$nowa_pokoje <- ifelse(data$Pokoje >= 4, 4, data$Pokoje) #wiecej niż 4 pokoje
 
 #c) liczba pokoi niezalezna od dzielnicy
 chi3 <- chisq.test(table(data$Dzielnica, data$nowa_pokoje))
