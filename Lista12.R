@@ -1,6 +1,6 @@
 #lista 12
 
-options(repos = "https://cloud.r-project.org")
+#options(repos = "https://cloud.r-project.org")
 #zadanie 1
 
 #a) obliczenia ręczne
