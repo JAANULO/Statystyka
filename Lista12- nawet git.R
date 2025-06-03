@@ -1,6 +1,5 @@
 #lista 12
 
-#options(repos = "https://cloud.r-project.org")
 #zadanie 1
 
 #a) obliczenia ręczne
@@ -56,10 +55,14 @@ alpha <- 0.05
 f_krytyczny <- qf(1 - alpha, df_mg, df_wg)
 p_value <- 1 - pf(f_stat, df_mg, df_wg)
 
-decyzja <- if(p_value < alpha) {
-  "odrzucamy h0 - istnieją istotne różnice między grupami (waga zależy od narodowości)"
+if (p_value > 0.05) {
+  decyzja <- "Nie odrzucamy H₀ (p > 0,05): Nie mamy dowodów przeciwko H₀."
+} else if (p_value > 0.01) {
+  decyzja <- "Odrzucamy H₀ (0,01 < p ≤ 0,05): Mamy dowody przeciwko H₀."
+} else if (p_value > 0.001) {
+  decyzja <- "Odrzucamy H₀ (0,001 < p ≤ 0,01): Mamy mocne dowody przeciwko H₀."
 } else {
-  "brak podstaw do odrzucenia h0 - nie ma istotnych różnic między grupami"
+  decyzja <- "Odrzucamy H₀ (p ≤ 0,001): Mamy bardzo mocne dowody przeciwko H₀."
 }
 
 cat("Zadanie1_c)\n", decyzja, "(p-value =", p_value, ")\n\n")
@@ -70,52 +73,52 @@ cat("Zadanie1_d)\n")
 print(summary(model_aov))
 cat("\n")
 
-#zadanie 2
-#a) test anova dla metrażu wg dzielnic
-#b) porównanie parami
-
-# wczytanie danych - zakładając, że plik jest w bieżącym katalogu
-if (!require("readxl")) install.packages("readxl")
-library(readxl)
-
-# wczytanie danych
-mieszkania <- read_excel("mieszkania.xlsx")
-
-#a) test anova
-model_metraz <- aov(metraz ~ dzielnica, data = mieszkania)
-cat("Zadanie2_a)\n")
-print(summary(model_metraz))
-cat("\n")
-
-#b) porównanie parami (tukey hsd)
-tukey_metraz <- TukeyHSD(model_metraz)
-cat("Zadanie2_b)\n")
-print(tukey_metraz)
-cat("\n")
-
-#zadanie 3
-#a) kategoryzacja mieszkań
-#b) test anova dla ceny/m2 wg kategorii
-#c) porównanie parami
-
-#a) tworzenie kategorii
-mieszkania$kategoria <- cut(
-  mieszkania$pokoje,
-  breaks = c(0, 1, 2, 3, Inf),
-  labels = c("1-pokojowe", "2-pokojowe", "3-pokojowe", "wielopokojowe"),
-  include.lowest = TRUE
-)
-
-# obliczenie ceny za m2
-mieszkania$cena_m2 <- mieszkania$cena / mieszkania$metraz
-
-#b) test anova
-model_cena <- aov(cena_m2 ~ kategoria, data = mieszkania)
-cat("Zadanie3_b)\n")
-print(summary(model_cena))
-cat("\n")
-
-#c) porównanie parami (tukey hsd)
-tukey_cena <- TukeyHSD(model_cena)
-cat("Zadanie3_c)\n")
-print(tukey_cena)
+# #zadanie 2
+# #a) test anova dla metrażu wg dzielnic
+# #b) porównanie parami
+#
+# # wczytanie danych - zakładając, że plik jest w bieżącym katalogu
+# #if (!require("readxl")) install.packages("readxl")
+# #library(readxl)
+#
+# # wczytanie danych
+# mieszkania <- read.csv("mieszkania.csv")
+#
+# #a) test anova
+# model_metraz <- aov(Metraz ~ Dzielnica, data = mieszkania)
+# cat("Zadanie2_a)\n")
+# print(summary(model_metraz))
+# cat("\n")
+#
+# #b) porównanie parami (tukey hsd)
+# tukey_metraz <- TukeyHSD(model_metraz)
+# cat("Zadanie2_b)\n")
+# print(tukey_metraz)
+# cat("\n")
+#
+# #zadanie 3
+# #a) kategoryzacja mieszkań
+# #b) test anova dla ceny/m2 wg kategorii
+# #c) porównanie parami
+#
+# #a) tworzenie kategorii
+# mieszkania$kategoria <- cut(
+#   mieszkania$Pokoje,
+#   breaks = c(0, 1, 2, 3, Inf),
+#   labels = c("1-pokojowe", "2-pokojowe", "3-pokojowe", "wielopokojowe"),
+#   include.lowest = TRUE
+# )
+#
+# # obliczenie ceny za m2
+# mieszkania$cena_m2 <- mieszkania$Cena / mieszkania$Metraz
+#
+# #b) test anova
+# model_cena <- aov(cena_m2 ~ kategoria, data = mieszkania)
+# cat("Zadanie3_b)\n")
+# print(summary(model_cena))
+# cat("\n")
+#
+# #c) porównanie parami (tukey hsd)
+# tukey_cena <- TukeyHSD(model_cena)
+# cat("Zadanie3_c)\n")
+# print(tukey_cena)
