@@ -103,7 +103,7 @@ plot(x, y, main = "Zadanie2_e: Rozrzut X i Y", xlab = "X", ylab = "Y")
 
 v <- 2*x + y
 
-# a) Korelacje i testy
+#a) Korelacje i testy
 cat("\nZadanie3_ai:\n")
 print(cor.test(x, v, method = "pearson"))
 
@@ -113,30 +113,29 @@ print(cor.test(x, v, method = "spearman"))
 cat("\nZadanie3_aiii:\n")
 print(cor.test(x, v, method = "kendall"))
 
-# b) Wykres
+#b) Wykres
 plot(x, v, main = "Zadanie3_b: Rozrzut X i V", xlab = "X", ylab = "V")
 
-##############################
-# zadanie4 – analiza danych mieszkań
-##############################
 
-# a) Wczytanie danych
+#zadanie4  – analiza danych mieszkań
+
+#a) Wczytanie danych
 dane <- read.csv("mieszkania.csv", sep = ";")
 dane$cena_m2 <- dane$Cena / dane$Metraz
 
-# b) Macierz korelacji Pearsona
+#b) Macierz korelacji Pearsona
 cat("\nZadanie4_b:\n")
 print(cor(dane[, c("Metraz", "Pokoje", "Cena", "cena_m2")], method = "pearson"))
 
-# c) Macierz Spearmana
+#c) Macierz Spearmana
 cat("\nZadanie4_c:\n")
 print(cor(dane[, c("Cena", "Metraz", "cena_m2", "Pokoje")], method = "spearman"))
 
-# d) Macierz Kendalla
+#d) Macierz Kendalla
 cat("\nZadanie4_d:\n")
 print(cor(dane[, c("Cena", "Metraz", "cena_m2", "Pokoje")], method = "kendall"))
 
-# e) Testy hipotezy: korelacja między Metrażem a ceną za m2
+#e) Testy hipotezy: korelacja między Metrażem a ceną za m2
 cat("\nZadanie4_ei:\n")
 print(cor.test(dane$Metraz, dane$cena_m2, method = "pearson"))
 
@@ -144,26 +143,26 @@ cat("\nZadanie4_eii:\n")
 print(cor.test(dane$Metraz, dane$cena_m2, method = "spearman"))
 
 cat("\nZadanie4_eiii:\n")
-print(cor.test(dane$Metraz, dane$cena_m2, method = "kendall"))
+print(cor.test(dane$Metraz, dane$cena_m2, method = "kendall", exact = FALSE ))
 
-##############################
-# zadanie5 – wzrost i waga z N(0,1)
-##############################
+
+#zadanie 5 – wzrost i waga z N(0,1)
+
 
 set.seed(123)
 X <- rnorm(100)
 Y <- rnorm(100)
 
-# a) Dane: H i W
+#a) Dane: H i W
 H <- 170 + 10*X
 W <- 70 + 15*Y
 
-# b) Średnie i odchylenia standardowe
+#b) Średnie i odchylenia standardowe
 cat("\nZadanie5_b:\n")
 cat("Średnia H =", mean(H), ", SD H =", sd(H), "\n")
 cat("Średnia W =", mean(W), ", SD W =", sd(W), "\n")
 
-# c) Korelacje
+#c) Korelacje
 cat("\nZadanie5_ci:\n")
 print(cor(H, W, method = "pearson"))
 
@@ -173,17 +172,17 @@ print(cor(H, W, method = "spearman"))
 cat("\nZadanie5_ciii:\n")
 print(cor(H, W, method = "kendall"))
 
-# d) Estymatory gęstości
+#d) Estymatory gęstości
 plot(density(H), main = "Zadanie5_d: Gęstość H i W", xlab = "Wartość")
 lines(density(W), col = "blue")
 legend("topright", legend = c("H (wzrost)", "W (waga)"), col = c("black", "blue"), lty = 1)
 
-# e) Testy normalności
+#e) Testy normalności
 cat("\nZadanie5_ei:\n")
 print(shapiro.test(H))
 
 cat("\nZadanie5_eii:\n")
 print(shapiro.test(W))
 
-# f) Wykres rozrzutu
+#f) Wykres rozrzutu
 plot(H, W, main = "Zadanie5_f: Rozrzut H i W", xlab = "Wzrost (H)", ylab = "Waga (W)")
