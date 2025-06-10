@@ -185,4 +185,4 @@ cat("\nZadanie5_eii:\n")
 print(shapiro.test(W))
 
 #f) Wykres rozrzutu
-plot(H, W, main = "Zadanie5_f: Rozrzut H i W", xlab = "Wzrost (H)", ylab = "Waga (W)")
+plot(H, W, main = "Zadanie5_e: Rozrzut H i W", xlab = "Wzrost (H)", ylab = "Waga (W)")

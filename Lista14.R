@@ -41,7 +41,7 @@ cat("\nZadanie1_d:\n")
 print(shapiro.test(resid1))
 
 
-#zadanie 2 – model regresji dla całkowitej ceny
+#zadanie 2 – model regresji dla całkowitej ceny (Y)
 
 #a) regresja krokowa (wsteczna) dla zmiennej Cena (nie cena za m2)
 model2_full <- lm(Cena ~ Metraz + Pietro_1 + dzielF + dzielP + dzielSr + dzielSt, data = dane)
